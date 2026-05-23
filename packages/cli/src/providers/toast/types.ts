@@ -6,4 +6,4 @@ export type ToastOptions = {
     duration?: number;
 };
 
-export const DEFAULT_DURATION = 3000;
+export const DEFAULT_DURATION = 5000;
