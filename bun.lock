@@ -4,9 +4,6 @@
   "workspaces": {
     "": {
       "name": "nightcode",
-      "devDependencies": {
-        "@types/react": "^19.2.15",
-      },
     },
     "packages/cli": {
       "name": "@nightcode/cli",
