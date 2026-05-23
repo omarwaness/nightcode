@@ -1,4 +1,8 @@
+import { useTheme } from '../providers/theme'
+
 export function Header() {
+  const { colors } = useTheme()
+
   return (
     <box justifyContent="center" alignItems="center">
       <box
@@ -7,8 +11,8 @@ export function Header() {
         gap={0.5}
         alignItems="center"
       >
-        <ascii-font font="tiny" text="Night" color="gray" />
-        <ascii-font font="tiny" text="Code" />
+        <ascii-font font="tiny" text="Night" color={colors.mutedForeground} />
+        <ascii-font font="tiny" text="Code" color={colors.foreground} />
       </box>
     </box>
   )
