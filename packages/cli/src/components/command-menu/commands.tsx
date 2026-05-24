@@ -1,6 +1,12 @@
-import { ThemeDialogContent } from '../dialogs'
+import {
+  AgentsDialogContent,
+  ModelsDialogContent,
+  SessionsDialogContent,
+  ThemeDialogContent
+} from '../dialogs'
 import { useTheme } from '../../providers/theme'
 import type { Command } from './types'
+import { SUPPORTED_CHAT_MODELS } from '../../../../shared/src/models'
 
 function PlaceholderDialogText({ message }: { message: string }) {
   const { colors } = useTheme()
@@ -14,7 +20,7 @@ export const COMMANDS: Command[] = [
     description: 'Start a new conversation',
     value: '/new',
     action: ctx => {
-      ctx.toast.show({ message: 'Starting new conversation...' })
+      ctx.navigate('/')
     }
   },
   {
@@ -23,8 +29,13 @@ export const COMMANDS: Command[] = [
     value: '/agents',
     action: ctx => {
       ctx.dialog.open({
-        title: 'Select Mode',
-        children: <PlaceholderDialogText message="Agent selection coming soon..." />
+        title: 'Select Agent',
+        children: (
+          <AgentsDialogContent
+            currentMode={ctx.mode}
+            onSelectMode={ctx.setMode}
+          />
+        )
       })
     }
   },
@@ -35,7 +46,12 @@ export const COMMANDS: Command[] = [
     action: ctx => {
       ctx.dialog.open({
         title: 'Select Model',
-        children: <PlaceholderDialogText message="Model selection coming soon..." />
+        children: (
+          <ModelsDialogContent
+            models={SUPPORTED_CHAT_MODELS.map(model => model.id)}
+            onSelectModel={ctx.setModel}
+          />
+        )
       })
     }
   },
@@ -44,7 +60,10 @@ export const COMMANDS: Command[] = [
     description: 'Browse past sessions',
     value: '/sessions',
     action: ctx => {
-      ctx.toast.show({ message: 'Loading sessions...' })
+      ctx.dialog.open({
+        title: 'Sessions',
+        children: <SessionsDialogContent />
+      })
     }
   },
   {
